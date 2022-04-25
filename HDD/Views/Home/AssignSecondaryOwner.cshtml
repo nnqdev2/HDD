@@ -1,0 +1,109 @@
+﻿@model HDD.Models.AssignSecondaryOwnerViewModel;
+
+@{
+    ViewData["Title"] = "Assign Secondary Owner to VINs";
+}
+
+@*<nav aria-label="breadcrumb">
+    <ol class="breadcrumb textDetail">
+        <li class="breadcrumb-item "><a href="@Url.Action("Index", "Home")">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">VIN Eligibility</li>
+    </ol>
+</nav>*@
+<hr />
+
+	<div class="row pt-4">
+		<div class="col-6">
+			<h2 class="text-primary">Assign Secondary Owner to VINs</h2>
+		</div>
+	</div>
+
+	<br /><br />
+
+	<div class="row" style="font:bold; padding-left:.75em; font-family: " Segoe UI", Arial, sans-serif;">
+    <div class="col-md-4">
+        <form asp-action="AssignSecondaryOwner"  method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="SecondaryOwnerId" class="control-label"></label>
+                    <select asp-for="SecondaryOwnerId" class="form-control" asp-items="ViewBag.Emails"></select>
+                </div>
+        </form>
+</div></div>
+
+
+
+@*@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}*@
+@section scripts{ 
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+       $(document).ready(function () {
+           $("#SecondaryOwnerEmail").change(function () {
+                alert("SecondaryOwnerEmail before ajax: " + $("#SecondaryOwnerEmail").val());
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetVinsForAssignment")',
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    data: { "email": $("#SecondaryOwnerEmail").val() },
+                    success: function (response) {
+                        //alert("Success: " + response);
+                        if (response == true) {
+                            $("#hidden-panel").hide()
+                        } else {
+                            $("#hidden-panel").show()
+                        }
+                    },
+                    failure: function (response) {
+                        alert("Failure: " +response);
+                    },
+                    error: function (response) {
+                        alert("Error: " +response);
+                    }
+                });
+            });
+
+            $("#registerSubmit").click(function () {
+                //alert("Input_VIN before ajax: " + $("#Input_VIN").val()
+                //+ "Input_Plate before ajax: " + $("#Input_Plate").val()
+                //+ "Input_RegisteredZip before ajax: " + $("#Input_RegisteredZip").val()
+                //);
+                $.ajax({
+                    type: "POST",
+                    //url: window.location.pathname +"/Identity/Account/Register?handler=CheckVINPlateRegisteredZip",
+                    //url: '@Url.Page("/Identity/Account/Register?handler=CheckVINPlateRegisteredZip")',
+                    url: window.location.pathname +"?handler=CheckVINPlateRegisteredZip",
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    data: { "vin": $("#Input_VIN").val() ,
+                            "plate": $("#Input_Plate").val() ,
+                            "registeredZip": $("#Input_RegisteredZip").val()
+                    },
+                    success: function (response) {
+                        //alert("Success: " + response);
+                        if (response == true) {
+                            $("#hidden-panel").hide()
+                        } else {
+                            $("#hidden-panel").show()
+                        }
+                    },
+                    failure: function (response) {
+                        alert("Failure: " +response);
+                    },
+                    error: function (response) {
+                        alert("Error: " +response);
+                    }
+                });
+            });
+        });
+    </script>
+}
