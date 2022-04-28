@@ -121,13 +121,13 @@ namespace HDD.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
-            [Required]
+            //[Required]
             [Display(Name = "VIN")]
             public string VIN { get; set; }
-            [Required]
+            //[Required]
             [Display(Name = "Plate")]
             public string Plate { get; set; }
-            [Required]
+            //[Required]
             [Display(Name = "Registered Zip")]
             public string RegisteredZip { get; set; }
         }
