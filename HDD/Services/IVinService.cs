@@ -1,4 +1,6 @@
-﻿namespace HDD.Services
+﻿using HDD.Models;
+
+namespace HDD.Services
 {
     public interface IVinService
     {
@@ -6,5 +8,7 @@
         bool IsPlateEligibleToClaim(string plate);
 
         bool IsVinEligibleToClaim(string vin);
+
+        RetrofitApplicationDmvccddata GetRetrofitApplicationDmvccddata(string vin);
     }
 }

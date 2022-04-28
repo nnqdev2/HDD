@@ -43,5 +43,11 @@ namespace HDD.Services
                 return true;
             return false;
         }
+
+        public RetrofitApplicationDmvccddata GetRetrofitApplicationDmvccddata(string vin)
+        {
+            var rad = _dataService.GetRetrofitApplicationDmvccddata(vin);
+            return rad;
+        }
     }
 }
