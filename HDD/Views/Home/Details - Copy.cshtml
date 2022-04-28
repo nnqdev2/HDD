@@ -1,0 +1,336 @@
+﻿@model HDD.Models.RetrofitApplicationDmvccddata
+
+
+@{
+    ViewData["Title"] = "Edit";
+
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+function buttonA_clickHandler() {
+    alert('scooby doo where are you????');
+    document.getElementById('SubmissionStatus').value = "VehicleInfo";
+    document.getElementById('VehicleInfoForm').submit();
+}
+</script>
+}
+
+
+<h4>Retrofit Application</h4>
+<hr />
+
+
+
+<button class="accordion">Customer Information </button>
+<div class="panel">
+    <div class="form-group">
+    <div class="row">
+    <div class="col-md-4">
+        <form id="VehicleInfoForm" asp-action="Details">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" id="Vin" asp-for="Vin" />
+ @*           <input type="hidden" id="SubmissionStatus" asp-for="SubmissionStatus" />*@
+            <div class="form-group">
+                <label asp-for="Vin" class="control-label"></label>
+                <input asp-for="Vin" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="Plate" class="control-label"></label>
+                <input asp-for="Plate" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="ModelYear" class="control-label"></label>
+                <input asp-for="ModelYear" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="EngineYear" class="control-label"></label>
+                <input asp-for="EngineYear" class="form-control" />
+                <span asp-validation-for="EngineYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EngineManufacturer" class="control-label"></label>
+                <input asp-for="EngineManufacturer" class="form-control" />
+                <span asp-validation-for="EngineManufacturer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gvw" class="control-label"></label>
+                <input asp-for="Gvw" class="form-control" readonly/>
+                <span asp-validation-for="Gvw" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EngineDisplacement" class="control-label"></label>
+                <input asp-for="EngineDisplacement" class="form-control" />
+                <span asp-validation-for="EngineDisplacement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EngineFamilyNumber" class="control-label"></label>
+                <input asp-for="EngineFamilyNumber" class="form-control" />
+                <span asp-validation-for="EngineFamilyNumber" class="text-danger"></span>
+            </div>
+@*            <div class="form-group">
+                <input type="submit" value="Save" name="vehicleinfo" class="btn btn-primary"  onclick="buttonA_clickHandler();"/>
+                <input type="submit" value="Save" class="btn btn-primary"/>
+            </div>*@
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+
+<button class="accordion">Customer Registration Information</button>
+<div class="panel">
+    <div class="form-group">
+    <div class="row">
+    <div class="col-md-4">
+        <form asp-action="Details" class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Vin" />
+            <input type="hidden" asp-for="Plate" />
+            @*<input type="hidden" asp-for="Email" />*@
+
+            <div class="form-group">
+                <label asp-for="OwnerName" class="control-label"></label>
+                <input asp-for="OwnerName" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetAddress" class="control-label"></label>
+                <input asp-for="StreetAddress" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-laebl"></label>
+                <input asp-for="City" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                <input asp-for="State" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zip" class="control-label"></label>
+                <input asp-for="Zip" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="County" class="control-label"></label>
+                <input asp-for="County" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegistrationExpiration" class="control-label"></label>
+                <input asp-for="RegistrationExpiration" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="PubliclyOwned" class="control-label"></label>
+                <input asp-for="PubliclyOwned" class="form-control" readonly />
+            </div>
+@*            <div class="form-group">
+                <label asp-for="SubmissionStatus" class="control-label"></label>
+                <input asp-for="SubmissionStatus" class="form-control" />
+                <span asp-validation-for="SubmissionStatus" class="text-danger"></span>
+            </div>*@
+@*            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>*@
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+
+<button class="accordion">Customer Retrofit Application Information</button>
+<div class="panel">
+    <div class="form-group">
+    <div class="row">
+    <div class="col-md-4">
+        <form asp-action="Details" class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Vin" />
+            <input type="hidden" asp-for="Plate" />
+            @*<input type="hidden" asp-for="Email" />*@
+
+            <div class="form-group">
+                <label asp-for="ArtFamilyName" class="control-label"></label>
+                <input asp-for="ArtFamilyName" class="form-control" />
+                <span asp-validation-for="ArtFamilyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RetrofitType" class="control-label"></label>
+                <input asp-for="RetrofitType" class="form-control" />
+                <span asp-validation-for="RetrofitType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RetrofitProvider" class="control-label"></label>
+                <input asp-for="RetrofitProvider" class="form-control" />
+                <span asp-validation-for="RetrofitProvider" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationDate" class="control-label"></label>
+                <input asp-for="ApplicationDate" class="form-control" />
+                <span asp-validation-for="ApplicationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comments" class="control-label"></label>
+                <input asp-for="Comments" class="form-control" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+@*            <div class="form-group">
+                <label asp-for="SubmissionStatus" class="control-label"></label>
+                <input asp-for="SubmissionStatus" class="form-control" />
+                <span asp-validation-for="SubmissionStatus" class="text-danger"></span>
+            </div>*@
+@*            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>*@
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+
+<button class="accordion">Customer Retrofit Application --  File Upload</button>
+<div class="panel">
+    <div class="form-group">
+    <div class="row">
+    <div class="col-md-4">
+        <form asp-action="Details" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Vin" />
+
+
+            <p style="text-align:left">
+Include Attachments *pdf; jpeg
+<ul>
+<li>Approved Retrofit Identification Label</li>
+<li>Pre-installation Compatibility Assessment</li> 
+<li>Warranty Registration Form</li>
+<li>Owner Testimony Form</li>
+<li>Annual Inspection Form</li>
+</ul>
+I acknowledge the application material submitted application per OAR 340-256-0520 1(A) - 1(E) 
+DOJ input on wording and check-box
+                </p>
+
+
+
+
+@*            <div class="form-group">
+                <label asp-for="ModelYear" class="control-label"></label>
+                <input asp-for="ModelYear" class="form-control" />
+                <span asp-validation-for="ModelYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EngineYear" class="control-label"></label>
+                <input asp-for="EngineYear" class="form-control" />
+                <span asp-validation-for="EngineYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comments" class="control-label"></label>
+                <input asp-for="Comments" class="form-control" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+*@
+
+@*            <div class="form-group">
+                <label asp-for="SubmissionStatus" class="control-label"></label>
+                <input asp-for="SubmissionStatus" class="form-control" />
+                <span asp-validation-for="SubmissionStatus" class="text-danger"></span>
+            </div>*@
+            <div class="form-group ">
+                <div class="row">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="Submit application for Certification" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+  
+
+
+
+@*
+<div class="row">
+<button class="accordion">Editable data section</button>
+<div class="panel">
+    <div class="col-md-4">
+        <form asp-action="Details" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Vin" />
+            <input type="hidden" asp-for="Plate" />
+            <input type="hidden" asp-for="Email" />
+
+
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Make" class="control-label"></label>
+                <input asp-for="Make" class="form-control" />
+                <span asp-validation-for="Make" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubmissionStatus" class="control-label"></label>
+                <input asp-for="SubmissionStatus" class="form-control" />
+                <span asp-validation-for="SubmissionStatus" class="text-danger"></span>
+            </div>
+</div>
+
+            <div class="form-group row">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+
+*@
+@*<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Details" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Vin" />
+            <input type="hidden" asp-for="Plate" />
+            <input type="hidden" asp-for="Email" />
+
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Make" class="control-label"></label>
+                <input asp-for="Make" class="form-control" />
+                <span asp-validation-for="Make" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubmissionStatus" class="control-label"></label>
+                <input asp-for="SubmissionStatus" class="form-control" />
+                <span asp-validation-for="SubmissionStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+<div>
+    <a asp-action="Index">Back to your Vins list</a>
+</div>
+
+
