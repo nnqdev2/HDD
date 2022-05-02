@@ -7,39 +7,29 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb textDetail">
         <li class="breadcrumb-item "><a href="@Url.Action("Index", "Home")">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">VIN Eligibility</li>
+        <li class="breadcrumb-item active" aria-current="page">Check if VIN/Plate is regulated.</li>
     </ol>
 </nav>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Index">
+        <form asp-action="Index"  class="row g-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group" data-step="1" data-intro="Enter vin to get a verification code for submission.">
-                <label asp-for="Vin" class="control-label textDetail"></label>
+            <div class="form-floating" >
                 <input asp-for="Vin" class="form-control" />
+                <label asp-for="Vin" class="form-label"></label>                
                 <span asp-validation-for="Vin" class="text-danger"></span>
             </div>
             <div class="form-group" >
                 <label class="control-label textDetail">OR</label>
             </div>
-            <div class="form-group" data-step="2" data-intro="Enter plate to get a verification code for submission.">
-                <label asp-for="Plate" class="control-label textDetail"></label>
+            <div class="form-floating" >
                 <input asp-for="Plate" class="form-control" />
+                <label asp-for="Plate" class="form-label"></label>
                 <span asp-validation-for="Plate" class="text-danger"></span>
             </div>
-@*            <div class="form-group" data-step="3" data-intro="Adding an email address will generate a verification code.">
-                <label asp-for="Email" class="control-label textDetail"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>*@
-@*            <div class="form-group" data-step="4" data-intro="Adding an email address will generate a verification code.">
-                <label asp-for="Code" class="control-label textDetail"></label>
-                <input asp-for="Code" class="form-control" />
-                <span asp-validation-for="Code" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
-                <input type="submit" value="Is VIN Regulated?" class="btn btn-primary" />
+                <input type="submit" value="Is VIN or Plate Regulated?" class="btn btn-primary" />
                 <span class="alert-danger textDetail">@ViewBag.messageerror</span>
             </div>
         </form>

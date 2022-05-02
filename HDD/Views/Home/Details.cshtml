@@ -6,18 +6,9 @@
 
 }
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-function buttonA_clickHandler() {
-    alert('scooby doo where are you????');
-    document.getElementById('SubmissionStatus').value = "VehicleInfo";
-    document.getElementById('VehicleInfoForm').submit();
-}
-</script>
-}
 
-<form asp-action="Details" enctype="multipart/form-data" class="row g-4">
+
+<form asp-action="Details" enctype="multipart/form-data" class="row g-3"  method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="accordion" id="accordionPanelsStayOpenExample">
       <div class="accordion-item">
@@ -28,46 +19,46 @@ function buttonA_clickHandler() {
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
           <div class="accordion-body">
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <label asp-for="Vin" class="form-label"></label>
+            <div class="row g-3">
+                <div class="form-floating col-md-6">
                     <input asp-for="Vin" class="form-control" disabled readonly />
+                    <label asp-for="Vin" class="form-label"></label>
                 </div>
-                <div class="col-md-3">
-                    <label asp-for="Plate" class="form-label"></label>
+                <div class="form-floating col-md-3">
                     <input asp-for="Plate" class="form-control" disabled readonly />
+                    <label asp-for="Plate" class="form-label"></label>
                 </div>		
-                <div class="col-md-3">
-                    <label asp-for="ModelYear" class="form-label"></label>
+                <div class="form-floating col-md-3">
                     <input asp-for="ModelYear" class="form-control" disabled readonly />
+                    <label asp-for="ModelYear" class="form-label"></label>
                 </div>
             </div>
-		    <div class="row g-4">
-                <div class="col-md-4">
-                    <label asp-for="EngineYear" class="form-label"></label>
+		    <div class="row g-3">
+                <div class="form-floating col-md-4">
                     <input asp-for="EngineYear" class="form-control" />
+                    <label asp-for="EngineYear" class="form-label"></label>
                     <span asp-validation-for="EngineYear" class="text-danger"></span>
                 </div>
-                <div class="col-md-4">
-                    <label asp-for="EngineManufacturer" class="form-label"></label>
+                <div class="form-floating col-md-4">
                     <input asp-for="EngineManufacturer" class="form-control" />
+                    <label asp-for="EngineManufacturer" class="form-label"></label>
                     <span asp-validation-for="EngineManufacturer" class="text-danger"></span>
                 </div>
-                <div class="col-md-4">
-                    <label asp-for="Gvw" class="form-label"></label>
+                <div class="form-floating col-md-4">
                     <input asp-for="Gvw" class="form-control" disabled readonly/>
+                    <label asp-for="Gvw" class="form-label"></label>
                     <span asp-validation-for="Gvw" class="text-danger"></span>
                 </div>
 		    </div>
-		    <div class="row g-4">
-                <div class="col-md-6">
-                    <label asp-for="EngineDisplacement" class="form-label"></label>
+		    <div class="row g-3">
+                <div class="form-floating col-md-6">
                     <input asp-for="EngineDisplacement" class="form-control" />
+                    <label asp-for="EngineDisplacement" class="form-label"></label>
                     <span asp-validation-for="EngineDisplacement" class="text-danger"></span>
                 </div>
-                <div class="col-md-6">
-                    <label asp-for="EngineFamilyNumber" class="form-label"></label>
+                <div class="form-floating col-md-6">
                     <input asp-for="EngineFamilyNumber" class="form-control" />
+                    <label asp-for="EngineFamilyNumber" class="form-label"></label>
                     <span asp-validation-for="EngineFamilyNumber" class="text-danger"></span>
                 </div>
 		    </div>
@@ -82,40 +73,40 @@ function buttonA_clickHandler() {
         </h2>
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
           <div class="accordion-body">
-              <div class="col-12">
-                <label asp-for="OwnerName" class="form-label"></label>
+              <div class="form-floating col-12">
                 <input asp-for="OwnerName" class="form-control form-control-sm" disabled readonly/>
+                <label asp-for="OwnerName" class="form-label"></label>                
               </div>
-              <div class="col-12">
+              <div class="form-floating col-12">
                 <label asp-for="StreetAddress" class="form-label"></label>
                 <input asp-for="StreetAddress" class="form-control form-control-sm" disabled readonly />
               </div>
-              <div class="row g-4">
-                <div class="col-md-6">
+              <div class="row g-3">
+                <div class="form-floating col-md-6">
                     <label asp-for="City" class="form-label"></label>
                     <input asp-for="City" class="form-control form-control-sm" disabled readonly/>
                 </div>
-                <div class="col-md-4">
+                <div class="form-floating col-md-4">
                     <label asp-for="State" class="form-label"></label>
                     <input asp-for="State" class="form-control form-control-sm" disabled readonly/>
                 </div>
-                <div class="col-md-2">
+                <div class="form-floating col-md-2">
                     <label asp-for="Zip" class="form-label"></label>
                     <input asp-for="Zip" class="form-control form-control-sm" disabled readonly />
                 </div>
               </div>
-              <div class="row g-4">
-                <div class="col-md-4">
+              <div class="row g-3">
+                <div class="form-floating col-md-4">
                     <label asp-for="County" class="form-label"></label>
                     <input asp-for="County" class="form-control form-control-sm" disabled readonly/>
                 </div>
-                <div class="col-md-4">
-                    <label asp-for="RegistrationExpiration" class="form-label"></label>
+                <div class="form-floating col-md-4">
                     <input asp-for="RegistrationExpiration" class="form-control form-control-sm" disabled readonly/>
+                    <label asp-for="RegistrationExpiration" class="form-label"></label>
                 </div>
-                <div class="col-md-4">
-                    <label asp-for="PubliclyOwned" class="form-label"></label>
+                <div class="form-floating col-md-4">
                     <input asp-for="PubliclyOwned" class="form-control form-control-sm" disabled readonly />
+                    <label asp-for="PubliclyOwned" class="form-label"></label>
                 </div>
             </div>
           </div>
@@ -129,33 +120,33 @@ function buttonA_clickHandler() {
         </h2>
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
           <div class="accordion-body">
-                <div class="row g-4">
-                    <div class="col-md-6">
-					    <label asp-for="ArtFamilyName" class="form-label"></label>
+                <div class="row g-3">
+                    <div class="form-floating col-md-6">
 					    <input asp-for="ArtFamilyName" class="form-control" />
+                        <label asp-for="ArtFamilyName" class="form-label"></label>
 					    <span asp-validation-for="ArtFamilyName" class="text-danger"></span>
 				    </div>
-				    <div class="col-md-6">
-					    <label asp-for="RetrofitType" class="form-label"></label>
+				    <div class="form-floating col-md-6">
 					    <input asp-for="RetrofitType" class="form-control" />
+                        <label asp-for="RetrofitType" class="form-label"></label>
 					    <span asp-validation-for="RetrofitType" class="text-danger"></span>
 				    </div>			
 			    </div>
-                <div class="row g-4">
-                    <div class="col-md-6">
-					    <label asp-for="RetrofitProvider" class="form-label"></label>
+                <div class="row g-3">
+                    <div class="form-floating col-md-6">
 					    <input asp-for="RetrofitProvider" class="form-control" />
+                        <label asp-for="RetrofitProvider" class="form-label"></label>
 					    <span asp-validation-for="RetrofitProvider" class="text-danger"></span>
 				    </div>
-				    <div class="col-md-6">
-					    <label asp-for="ApplicationDate" class="form-label"></label>
+				    <div class="form-floating col-md-6">
 					    <input asp-for="ApplicationDate" class="form-control" />
+                        <label asp-for="ApplicationDate" class="form-label"></label>
 					    <span asp-validation-for="ApplicationDate" class="text-danger"></span>
 				    </div>
 			    </div>
-                <div class="col-12">
-                    <label asp-for="Comments" class="form-label"></label>
+                <div class="form-floating col-12">
                     <input asp-for="Comments" class="form-control" />
+                    <label asp-for="Comments" class="form-label"></label>
                     <span asp-validation-for="Comments" class="text-danger"></span>
                 </div>      
             </div>
@@ -169,7 +160,67 @@ function buttonA_clickHandler() {
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
           <div class="accordion-body">
-            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+
+@*            <div class="mb-3">
+              <label for="formFile" class="form-label">Default file input example</label>
+              <input class="form-control" type="file" id="formFile">
+            </div>*@
+            <div class="mb-3">
+              <label for="formFileMultiple" class="form-label">Select Document(s) to submit</label>
+              <input class="form-control" type="file" id="file" onchange="FileDetails()" multiple />
+              <div id="uploadHelp" class="form-text">***Acceptable document types are jpegs and pdfs.</div>
+            </div>
+
+    <!--SHOW RESULT HERE-->
+            <div class="mb-3">
+                <p id="fp"></p>
+                <input type="button" class="btn btn-info" value="Show Details" onclick="FileDetails()" >
+            </div>
+
+
+<script>
+    function FileDetails() {
+
+        // GET THE FILE INPUT.
+        var fi = document.getElementById('file');
+
+        alert ("fi ====> "+fi);
+
+        // VALIDATE OR CHECK IF ANY FILE IS SELECTED.
+        if (fi.files.length > 0) {
+            if (fi.files.length > 6) {
+                alert ('Max number of documents uploaded each time is 6.')
+            }
+
+            // THE TOTAL FILE COUNT.
+            document.getElementById('fp').innerHTML =
+                'Total Files: <b>' + fi.files.length + '</b></br >';
+
+            // RUN A LOOP TO CHECK EACH SELECTED FILE.
+            for (var i = 0; i <= fi.files.length - 1; i++) {
+
+                var fname = fi.files.item(i).name;      // THE NAME OF THE FILE.
+                var fsize = fi.files.item(i).size;      // THE SIZE OF THE FILE.
+
+                // SHOW THE EXTRACTED DETAILS OF THE FILE.
+                document.getElementById('fp').innerHTML =
+                    document.getElementById('fp').innerHTML + '<br /> ' +
+                        fname + ' (<b>' + fsize + '</b> bytes)';
+            }
+        }
+        else { 
+            alert('Please select a file.') 
+        }
+
+        alert ("this is the end ..."+fi);
+    }
+</script>
+
+
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" id="customFileInput">Upload</button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -182,3 +233,18 @@ function buttonA_clickHandler() {
 </div>
 
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
+
+    <script>
+function buttonA_clickHandler() {
+    alert('scooby doo where are you????');
+    document.getElementById('SubmissionStatus').value = "VehicleInfo";
+    document.getElementById('VehicleInfoForm').submit();
+}
+</script>
+
+}
