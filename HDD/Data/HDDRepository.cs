@@ -182,37 +182,44 @@ namespace HDD.Data
         public RetrofitApplicationDmvccddata GetRetrofitApplicationDmvccddata(string vin)
         {
             var retrofitApplicationDmvccddata = from ra in _context.RetrofitApplication
-                    join d in _context.Dmvccddata on ra.Vin equals d.Vin
-                    where ra.Vin == "vin1"
-                    select new RetrofitApplicationDmvccddata
-                    {
-                        Vin = ra.Vin,
-                        Plate = d.Plate,
-                        Gvw = d.Gvw,
-                        EngineYear = ra.EngineYear,
-                        ModelYear = d.ModelYear,
-                        EngineManufacturer = ra.EngineManufacturer,
-                        EngineFamilyNumber = ra.EngineFamilyNumber,
-                        EngineDisplacement = ra.EngineDisplacement,
-                        ArtFamilyName = ra.ArtFamilyName,
-                        ApplicationDate = ra.ApplicationDate,
-                        RetrofitType = ra.RetrofitType,
-                        RetrofitProvider = ra.RetrofitProvider,
-                        Comments = ra.Comments,
-                        RegistrationWeight = d.RegistrationWeight,
-                        WeightRange = d.WeightRange,
-                        OwnerName = d.OwnerName,
-                        StreetAddress = d.StreetAddress,
-                        City = d.City,
-                        State = d.State,
-                        Zip = d.Zip,
-                        County = d.County,
-                        PubliclyOwned = d.PubliclyOwned,
-                        RegistrationExpiration = d.RegistrationExpiration,
-                        RenewalAgency = d.RenewalAgency,
-                        ChangedOwnership = d.ChangedOwnership
+                                                join d in _context.Dmvccddata on ra.Vin equals d.Vin
+                                                where ra.Vin == "vin1"
+                                                select new RetrofitApplicationDmvccddata
+                                                {
+                                                    Vin = ra.Vin,
+                                                    Plate = d.Plate,
+                                                    Gvw = d.Gvw,
+                                                    EngineYear = ra.EngineYear,
+                                                    ModelYear = d.ModelYear,
+                                                    EngineManufacturer = ra.EngineManufacturer,
+                                                    EngineFamilyNumber = ra.EngineFamilyNumber,
+                                                    EngineDisplacement = ra.EngineDisplacement,
+                                                    ArtFamilyName = ra.ArtFamilyName,
+                                                    ApplicationDate = ra.ApplicationDate,
+                                                    RetrofitType = ra.RetrofitType,
+                                                    RetrofitProvider = ra.RetrofitProvider,
+                                                    Comments = ra.Comments,
+                                                    RegistrationWeight = d.RegistrationWeight,
+                                                    WeightRange = d.WeightRange,
+                                                    OwnerName = d.OwnerName,
+                                                    StreetAddress = d.StreetAddress,
+                                                    City = d.City,
+                                                    State = d.State,
+                                                    Zip = d.Zip,
+                                                    County = d.County,
+                                                    PubliclyOwned = d.PubliclyOwned,
+                                                    RegistrationExpiration = d.RegistrationExpiration,
+                                                    RenewalAgency = d.RenewalAgency,
+                                                    ChangedOwnership = d.ChangedOwnership,
+                                                    DocumentActions = new List<DocumentAction>()
                     };
             return retrofitApplicationDmvccddata.FirstOrDefault();
+        }
+        public IEnumerable<VehicleDocuments> GetVehicleDocuments(string vin)
+        {
+            IEnumerable<VehicleDocuments> result = _context.VehicleDocuments.Where(a => a.Vin == vin);
+            return result;
+  
         }
 
         public bool IsVinRegulated(string vin)
@@ -300,6 +307,11 @@ namespace HDD.Data
             //                         select new { a.Vin }).ToList();
 
             return (IList<string>)vins;
+        }
+
+        public IEnumerable<DocumentAction> GetDocumentsAction(string vin)
+        {
+            throw new NotImplementedException();
         }
         //IEnumerable<EmailCode> IHDDRepository.GetEmailCode(int vehicleId, string email)
         //{

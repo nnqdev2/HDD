@@ -10,5 +10,7 @@ namespace HDD.Services
         bool IsVinEligibleToClaim(string vin);
 
         RetrofitApplicationDmvccddata GetRetrofitApplicationDmvccddata(string vin);
+
+        IList<DocumentAction> GetDocumentsAction(string vin);
     }
 }

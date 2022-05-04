@@ -123,6 +123,7 @@ namespace HDD.Controllers
         [HttpGet]
         public IActionResult Details(string vin)
         {
+            vin = "vin1";
             var rad = _vinService.GetRetrofitApplicationDmvccddata(vin);
             //var vehicle = _dataService.GetVehicle(vin, plate, email);
             //if (vehicle == null)

@@ -14,7 +14,7 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-            Customer Registration Information
+            @Model.Vin Customer Registration Information
           </button>
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
@@ -68,7 +68,7 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-            Customer Information
+            @Model.Vin Customer Information
           </button>
         </h2>
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
@@ -78,27 +78,27 @@
                 <label asp-for="OwnerName" class="form-label"></label>                
               </div>
               <div class="form-floating col-12">
-                <label asp-for="StreetAddress" class="form-label"></label>
                 <input asp-for="StreetAddress" class="form-control form-control-sm" disabled readonly />
+                <label asp-for="StreetAddress" class="form-label"></label>
               </div>
               <div class="row g-3">
                 <div class="form-floating col-md-6">
-                    <label asp-for="City" class="form-label"></label>
                     <input asp-for="City" class="form-control form-control-sm" disabled readonly/>
+                    <label asp-for="City" class="form-label"></label>
                 </div>
                 <div class="form-floating col-md-4">
-                    <label asp-for="State" class="form-label"></label>
                     <input asp-for="State" class="form-control form-control-sm" disabled readonly/>
+                    <label asp-for="State" class="form-label"></label>
                 </div>
                 <div class="form-floating col-md-2">
-                    <label asp-for="Zip" class="form-label"></label>
                     <input asp-for="Zip" class="form-control form-control-sm" disabled readonly />
+                    <label asp-for="Zip" class="form-label"></label>
                 </div>
               </div>
               <div class="row g-3">
                 <div class="form-floating col-md-4">
-                    <label asp-for="County" class="form-label"></label>
                     <input asp-for="County" class="form-control form-control-sm" disabled readonly/>
+                    <label asp-for="County" class="form-label"></label>
                 </div>
                 <div class="form-floating col-md-4">
                     <input asp-for="RegistrationExpiration" class="form-control form-control-sm" disabled readonly/>
@@ -115,7 +115,7 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingThree">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-            Customer Retrofit Application Information
+            @Model.Vin Customer Retrofit Application Information
           </button>
         </h2>
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
@@ -153,9 +153,60 @@
         </div>
       </div>
       <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingThree1">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree1" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree1">
+            @Model.Vin Customer Retrofit Application Documents Submitted
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree1" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree1">
+          <div class="accordion-body">
+            <table class="table table-bordered table-hover" >
+            @*<table class="table table-bordered table-hover" style="width:100%">*@
+	            <thead>
+		            <tr>
+			            @*<th>VIN</th>*@
+			            <th>File Name</th>
+@*			            <th>File Path</th>*@
+			            <th>Mark for Delete</th>
+		            </tr>
+	            </thead>
+	            <tbody>
+                    @if (Model.DocumentActions.Count() > 0)
+                    {
+                        @foreach(var obj in Model.DocumentActions)
+		                {
+			                <tr>
+				                @*<td >@obj.Vin</td>*@
+				                <td ><a href="https://deqtoo.org" target="_blank">@obj.DocumentName</a></td>
+                                @*<td width="10%">@obj.DocumentPath</td>*@
+				                <td>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" id="@obj.IsDelete">
+@*                                      <label class="form-check-label" for="flexCheckDefault">
+                                        Default checkbox
+                                      </label>*@
+                                    </div>
+                                </td>
+			                </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                        <td >No documents submitted</td>
+                        </tr>
+                    }
+
+			
+	            </tbody>
+            </table>    
+            </div>
+        </div>
+      </div>
+      <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingFour">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-            Customer Retrofit Application Document Uploads
+            @Model.Vin Customer Retrofit Application Document Uploads
           </button>
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
@@ -174,55 +225,93 @@
     <!--SHOW RESULT HERE-->
             <div class="mb-3">
                 <p id="fp"></p>
-                <input type="button" class="btn btn-info" value="Show Details" onclick="FileDetails()" >
+                @*<input type="button" class="btn btn-info" value="Show Details" onclick="FileDetails()" >*@
             </div>
 
 
-<script>
-    function FileDetails() {
+            <script>
+                function FileDetails() {
 
-        // GET THE FILE INPUT.
-        var fi = document.getElementById('file');
+                    // GET THE FILE INPUT.
+                    var fi = document.getElementById('file');
 
-        alert ("fi ====> "+fi);
+                    alert ("fi ====> "+fi);
 
-        // VALIDATE OR CHECK IF ANY FILE IS SELECTED.
-        if (fi.files.length > 0) {
-            if (fi.files.length > 6) {
-                alert ('Max number of documents uploaded each time is 6.')
-            }
+                    // VALIDATE OR CHECK IF ANY FILE IS SELECTED.
+                    if (fi.files.length > 0) {
+                        if (fi.files.length > 6) {
+                            alert ('Max number of documents uploaded each time is 6.')
+                        }
 
-            // THE TOTAL FILE COUNT.
-            document.getElementById('fp').innerHTML =
-                'Total Files: <b>' + fi.files.length + '</b></br >';
+                        // THE TOTAL FILE COUNT.
+                        document.getElementById('fp').innerHTML =
+                            'Total Files: <b>' + fi.files.length + '</b></br >';
 
-            // RUN A LOOP TO CHECK EACH SELECTED FILE.
-            for (var i = 0; i <= fi.files.length - 1; i++) {
+                        // RUN A LOOP TO CHECK EACH SELECTED FILE.
+                        for (var i = 0; i <= fi.files.length - 1; i++) {
 
-                var fname = fi.files.item(i).name;      // THE NAME OF THE FILE.
-                var fsize = fi.files.item(i).size;      // THE SIZE OF THE FILE.
+                            var fname = fi.files.item(i).name;      // THE NAME OF THE FILE.
+                            var fsize = fi.files.item(i).size;      // THE SIZE OF THE FILE.
 
-                // SHOW THE EXTRACTED DETAILS OF THE FILE.
-                document.getElementById('fp').innerHTML =
-                    document.getElementById('fp').innerHTML + '<br /> ' +
-                        fname + ' (<b>' + fsize + '</b> bytes)';
-            }
-        }
-        else { 
-            alert('Please select a file.') 
-        }
+                            // SHOW THE EXTRACTED DETAILS OF THE FILE.
+                            document.getElementById('fp').innerHTML =
+                                document.getElementById('fp').innerHTML + '<br /> ' +
+                                    fname + ' (<b>' + fsize + '</b> bytes)';
+                        }
+                    }
+                    else { 
+                        alert('Please select a file.') 
+                    }
 
-        alert ("this is the end ..."+fi);
-    }
-</script>
+                    alert ("this is the end ..."+fi);
+                }
+            </script>
 
 
-            <div class="input-group-append">
+@*            <div class="input-group-append">
               <button class="btn btn-primary" type="button" id="customFileInput">Upload</button>
-            </div>
+            </div>*@
 
           </div>
         </div>
+
+@*        <div class="row  btn-group" role="group">
+            <div class="btn-group" role="group">
+                <a asp-action="Save" asp-route-id="@Model.Vin" class="btn btn-primary ">
+                <i class="bi bi-pencil-square">Save</i>
+                </a>
+            </div>
+            <div class="btn-group" role="group">
+                <a asp-action="Submit" asp-route-id="@Model.Vin"  class="btn primary ">
+                <i class="bi bi-pencil-square">Submit</i>
+                </a>
+            </div>
+            <div class="btn-group" role="group">
+                <a asp-action="Unclaim" asp-route-id="@Model.Vin"  class="btn btn-danger ">
+                <i class="bi bi-trash-fill">UnClaim this VIN</i>
+                </a>
+            </div>
+        </div>*@
+
+@*        <div class="row btn-group" role="button">*@
+    <p>
+
+                <a asp-action="Save" asp-route-id="@Model.Vin" class="btn btn-primary mx-2">
+                <i class="bi bi-pencil-square">Save</i>
+                </a>
+
+
+                <a asp-action="Submit" asp-route-id="@Model.Vin"  class="btn btn-primary mx-2">
+                <i class="bi bi-pencil-square">Submit</i>
+                </a>
+
+
+                <a asp-action="Unclaim" asp-route-id="@Model.Vin"  class="btn btn-danger mx-2">
+                <i class="bi bi-trash-fill">UnClaim @Model.Vin</i>
+                </a>
+</p>
+  @*      </div>*@
+
       </div>
     </div>
 </form>

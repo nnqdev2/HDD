@@ -21,6 +21,7 @@ namespace HDD.Data
         IEnumerable<OwnersVin> GetPrimaryOwnersVins(string ownerId);
         Task<IList<OwnersVin>> GetSecondaryOwnerIds(string ownerId);
         RetrofitApplicationDmvccddata GetRetrofitApplicationDmvccddata(string vin);
+        IEnumerable<VehicleDocuments> GetVehicleDocuments(string vin);
         bool IsVinRegulated(string vin);
         bool IsPlateRegulated(string plate);
 

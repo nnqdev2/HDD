@@ -47,7 +47,26 @@ namespace HDD.Services
         public RetrofitApplicationDmvccddata GetRetrofitApplicationDmvccddata(string vin)
         {
             var rad = _dataService.GetRetrofitApplicationDmvccddata(vin);
+            var da =  GetDocumentsAction(vin);
+            foreach (var d in da)
+            {
+                rad.DocumentActions.Add(d);
+            }
             return rad;
         }
+
+        public IList<DocumentAction> GetDocumentsAction(string vin)
+        {
+            var vehicleDocuments = _dataService.GetVehicleDocuments(vin);
+
+            IList<DocumentAction> documentActions = vehicleDocuments.Select(x => new DocumentAction
+            {
+                Vin = vin,
+                DocumentPath = x.DocumentPath,
+                DocumentName = x.DocumentPath,
+                IsDelete = false
+            }).ToList();
+            return documentActions;
+        }
     }
-}
+} 

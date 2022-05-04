@@ -32,5 +32,6 @@
         //public DateTime? RunDate { get; set; }
         //public DateTime? EntryDateTime { get; set; }
         //public List<IFormFile>? Files { get; set; }
+        public IList<DocumentAction>? DocumentActions { get; set; }
     }
 }
