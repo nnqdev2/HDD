@@ -122,7 +122,7 @@
           <div class="accordion-body">
                 <div class="row g-3">
                     <div class="form-floating col-md-6">
-					    <input asp-for="ArtFamilyName" class="form-control" />
+					    <input asp-for="ArtFamilyName" class="form-control required-field" />
                         <label asp-for="ArtFamilyName" class="form-label"></label>
 					    <span asp-validation-for="ArtFamilyName" class="text-danger"></span>
 				    </div>
@@ -206,7 +206,7 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingFour">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-            @Model.Vin Customer Retrofit Application Document Uploads
+            @Model.Vin Customer Retrofit Application Document Uploads ** when vin status is in Pending Ceritification or Certified, only this section is updatable **
           </button>
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
@@ -307,7 +307,7 @@
 
 
                 <a asp-action="Unclaim" asp-route-id="@Model.Vin"  class="btn btn-danger mx-2">
-                <i class="bi bi-trash-fill">UnClaim @Model.Vin</i>
+                <i class="bi bi-trash-fill">UnClaim @Model.Vin **only Primary Owner sees this button**</i>
                 </a>
 </p>
   @*      </div>*@
