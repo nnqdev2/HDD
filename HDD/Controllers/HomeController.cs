@@ -106,9 +106,9 @@ namespace HDD.Controllers
             }
             else
             {
-                ModelState.AddModelError(String.Empty, "VIN/Plate is not claimable.");
-                ModelState.AddModelError("vpevm.Vin", "VIN is not claimable.");
-                ModelState.AddModelError("vpevm.Plate", "Plate is not claimable.");
+                ModelState.AddModelError(String.Empty, "VIN/Plate is not regulated/has been claimed by others/You owned this Vin already.");
+                ModelState.AddModelError("vpevm.Vin", "VIN/Plate is not regulated/has been claimed by others/You owned this Vin already.");
+                ModelState.AddModelError("vpevm.Plate", "VIN/Plate is not regulated/has been claimed by others/You owned this Vin already.");
             }
 
             return View();

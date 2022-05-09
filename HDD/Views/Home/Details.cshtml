@@ -119,7 +119,7 @@
           </button>
         </h2>
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-          <div class="accordion-body">
+            <div class="accordion-body">
                 <div class="row g-3">
                     <div class="form-floating col-md-6">
 					    <input asp-for="ArtFamilyName" class="form-control required-field" />
@@ -148,7 +148,10 @@
                     <input asp-for="Comments" class="form-control" />
                     <label asp-for="Comments" class="form-label"></label>
                     <span asp-validation-for="Comments" class="text-danger"></span>
-                </div>      
+                </div>  
+                <div class="form-floating col-12">
+                <div id="uploadHelp" class="form-text" style="color:red">**Rick's document mentioned Installation Date.  Do we need to add Installation date to RetrofitApplication table?**</div>
+                </div>
             </div>
         </div>
       </div>
@@ -165,9 +168,13 @@
 	            <thead>
 		            <tr>
 			            @*<th>VIN</th>*@
-			            <th>File Name</th>
+			            <th>Document Name</th>
+                        <th>Document Type</th>
+                        <th>Certification year</th>
+                        <th>Uploaded By</th>
+                        <th>Uploaded Date</th>
 @*			            <th>File Path</th>*@
-			            <th>Mark for Delete</th>
+			            <th data-bs-toggle="tooltip" data-bs-placement="top" title="Will be grayed out/not visible when VINStatus = Pending Cert/Certified.">Mark for Delete</th>
 		            </tr>
 	            </thead>
 	            <tbody>
@@ -178,7 +185,10 @@
 			                <tr>
 				                @*<td >@obj.Vin</td>*@
 				                <td ><a href="https://deqtoo.org" target="_blank">@obj.DocumentName</a></td>
-                                @*<td width="10%">@obj.DocumentPath</td>*@
+                                <td width="10%">Pre-installation Compatibility Assessment</td>
+                                <td width="10%">2020</td>
+                                <td width="10%">nga.quan@deq.oregon.gov</td>
+                                <td width="10%">2020/09/10</td>
 				                <td>
                                     <div class="form-check">
                                       <input class="form-check-input" type="checkbox" value="" id="@obj.IsDelete">
@@ -206,36 +216,52 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingFour">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-            @Model.Vin Customer Retrofit Application Document Uploads ** when vin status is in Pending Ceritification or Certified, only this section is updatable **
+            @Model.Vin Customer Retrofit Application Document Uploads  <span style="color: red"> &nbsp; &nbsp;** Owners can always upload documents regardless of the VIN status.  **</span>
           </button>
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
           <div class="accordion-body">
-
-@*            <div class="mb-3">
-              <label for="formFile" class="form-label">Default file input example</label>
-              <input class="form-control" type="file" id="formFile">
-            </div>*@
-            <div class="mb-3">
-              <label for="formFileMultiple" class="form-label">Select Document(s) to submit</label>
-              <input class="form-control" type="file" id="file" onchange="FileDetails()" multiple />
-              <div id="uploadHelp" class="form-text">***Acceptable document types are jpegs and pdfs.</div>
+            <div class="row g-3">
+                <div class="form-group col-md-4">
+                    <select class="form-select form-select-lg mb-3 col-md-4" aria-label=".form-select-lg example">
+                    @*<select data-val="true" data-val-required="The DayOfWeek field is required." id="DayOfWeek" name="DayOfWeek">*@
+                        <option value="">Select a certification year</option>
+                        <option value="0">2020</option>
+                        <option value="1">2021</option>
+                        <option value="2">2022</option>
+                    </select>
+                    <div id="uploadHelp" class="form-text" style="color:red">Need a reference table for certification years</div>
+                </div>
+                <div class="form-group col-md-4">
+                    <select class="form-select form-select-lg mb-3 col-md-4" aria-label=".form-select-lg example">
+                    @*<select data-val="true" data-val-required="The DayOfWeek field is required." id="DayOfWeek" name="DayOfWeek">*@
+                        <option value="">Select a document type</option>
+                        <option value="0">Approved Retrofit Identification Label</option>
+                        <option value="1">Pre-installation Compatibility Assessment</option>
+                        <option value="2">Warranty Registration Form</option>
+                        <option value="3">Owner Testimony Form</option>
+                        <option value="4">Annual Inspection Form</option>
+                        <option value="5">Others</option>
+                    </select>
+                    <div id="uploadHelp" class="form-text" style="color:red">Need a reference table for document types</div>
+                </div>
             </div>
-
+             <div class="mb-3">
+              <label for="formFile" class="form-label">Select Document to Upload</label>
+              <input class="form-control" type="file" id="formFile" onchange="FileDetails()">
+              <div id="uploadHelp" class="form-text" style="color:red">Acceptable file types are jpegs and pdfs. Is this correct?</div>
+            </div>
     <!--SHOW RESULT HERE-->
             <div class="mb-3">
                 <p id="fp"></p>
-                @*<input type="button" class="btn btn-info" value="Show Details" onclick="FileDetails()" >*@
             </div>
-
-
             <script>
                 function FileDetails() {
 
                     // GET THE FILE INPUT.
-                    var fi = document.getElementById('file');
+                    var fi = document.getElementById('formFile');
 
-                    alert ("fi ====> "+fi);
+                    //alert ("fi ====> "+fi);
 
                     // VALIDATE OR CHECK IF ANY FILE IS SELECTED.
                     if (fi.files.length > 0) {
@@ -244,8 +270,8 @@
                         }
 
                         // THE TOTAL FILE COUNT.
-                        document.getElementById('fp').innerHTML =
-                            'Total Files: <b>' + fi.files.length + '</b></br >';
+                        //document.getElementById('fp').innerHTML =
+                        //    'Total Files: <b>' + fi.files.length + '</b></br >';
 
                         // RUN A LOOP TO CHECK EACH SELECTED FILE.
                         for (var i = 0; i <= fi.files.length - 1; i++) {
@@ -263,54 +289,44 @@
                         alert('Please select a file.') 
                     }
 
-                    alert ("this is the end ..."+fi);
+                    //alert ("this is the end ..."+fi);
                 }
             </script>
-
-
-@*            <div class="input-group-append">
+            <div class="input-group-append">
               <button class="btn btn-primary" type="button" id="customFileInput">Upload</button>
-            </div>*@
+            </div>
 
           </div>
         </div>
 
-@*        <div class="row  btn-group" role="group">
-            <div class="btn-group" role="group">
-                <a asp-action="Save" asp-route-id="@Model.Vin" class="btn btn-primary ">
-                <i class="bi bi-pencil-square">Save</i>
-                </a>
-            </div>
-            <div class="btn-group" role="group">
-                <a asp-action="Submit" asp-route-id="@Model.Vin"  class="btn primary ">
-                <i class="bi bi-pencil-square">Submit</i>
-                </a>
-            </div>
-            <div class="btn-group" role="group">
-                <a asp-action="Unclaim" asp-route-id="@Model.Vin"  class="btn btn-danger ">
-                <i class="bi bi-trash-fill">UnClaim this VIN</i>
-                </a>
-            </div>
-        </div>*@
 
-@*        <div class="row btn-group" role="button">*@
-    <p>
 
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingAction">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseAction" aria-expanded="false" aria-controls="panelsStayOpen-collapseAction">
+            @Model.Vin ACTION 
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseAction" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingAction">
+          <div class="accordion-body">
+@*<div class="row btn-group" role="button">*@
                 <a asp-action="Save" asp-route-id="@Model.Vin" class="btn btn-primary mx-2">
-                <i class="bi bi-pencil-square">Save</i>
+                <i class="bi bi-pencil-square"  data-bs-toggle="tooltip" data-bs-placement="top" title="not visible or grayed out when VIN status is in Pending Cert/Certified status.  No Validations done.  Emails sent to all owners. ">Save</i>
                 </a>
-
-
                 <a asp-action="Submit" asp-route-id="@Model.Vin"  class="btn btn-primary mx-2">
-                <i class="bi bi-pencil-square">Submit</i>
+                <i class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-placement="top" title="not visible or grayed out when VIN status is in Pending Cert/Certified status.  Validation required here.  Emails sent to all owners and VIP staff.  Update RetrofitCertification.VINstatus to Pending Review when all validations pass. ">Submit</i>
                 </a>
-
-
                 <a asp-action="Unclaim" asp-route-id="@Model.Vin"  class="btn btn-danger mx-2">
-                <i class="bi bi-trash-fill">UnClaim @Model.Vin **only Primary Owner sees this button**</i>
+                <i class="bi bi-trash-fill"  data-bs-toggle="tooltip" data-bs-placement="top" title="For Primary Owner eyes only.  Can owner unclaim the vin when vin status is pending cert/certified? " >UnClaim @Model.Vin </i>
                 </a>
-</p>
-  @*      </div>*@
+@*</div>*@
+          </div>
+        </div>
+      </div>
+
+
 
       </div>
     </div>
@@ -327,8 +343,14 @@
 
 
 
+<script>
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
 
-    <script>
+<script>
 function buttonA_clickHandler() {
     alert('scooby doo where are you????');
     document.getElementById('SubmissionStatus').value = "VehicleInfo";

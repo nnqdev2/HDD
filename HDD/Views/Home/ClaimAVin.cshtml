@@ -41,6 +41,14 @@
                 <span class="alert-danger textDetail">@ViewBag.messageerror</span>
             </div>
         </form>
+        <p>
+            To claim a VIN, the system checks:
+<ul>  
+  <li>RetrofitCerification record exists for the VIN</li>
+  <li>AND RetrofitCerification.VINStatus = Active</li>
+  <li>AND (OwnersVin table does not have a row for the VIN or if it does, the OwnersVin.OwnerStatus must be No/InActive</li>
+</ul>
+        </p>
     </div>
 </div>
 <div>
