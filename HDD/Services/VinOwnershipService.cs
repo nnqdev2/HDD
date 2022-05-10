@@ -77,7 +77,8 @@ namespace HDD.Services
 
         public async Task<IList<EmailInfo>> GetSecondaryOwners(string ownerId)
         {
-            var secondaryOwnersVins = await _dataService.GetSecondaryOwnerIds("aaf7efd0-ae13-48e9-9d72-83e713ef8100");
+            //var secondaryOwnersVins = await _dataService.GetSecondaryOwnerIds("aaf7efd0-ae13-48e9-9d72-83e713ef8100");
+            var secondaryOwnersVins = await _dataService.GetSecondaryOwnerIds(ownerId);
             //var secondaryOwnerIds = secondaryOwnersVins.GroupBy(o => o.OwnerId).Select(s => s.First());
             var distinctSecondaryOwnersVins = secondaryOwnersVins.GroupBy(o => new { o.OwnerId }).Select(g => g.First());
             IList<EmailInfo> emailInfos = new List<EmailInfo>();
@@ -97,9 +98,23 @@ namespace HDD.Services
             return emailInfos;
         }
 
-        public async Task<IList<string>> GetVinsForSecondaryOwnershipAssignment(string ownerId, string secondaryOwnerId)
+        public async Task<IList<VinSecondaryOwnerAction>> GetVinsForSecondaryOwnershipAssignment(string ownerId, string secondaryOwnerId)
         {
-            return await _dataService.GetVinsForSecondaryOwnershipAssignment(ownerId, secondaryOwnerId);
+            var vins = await _dataService.GetVinsForSecondaryOwnershipAssignment(ownerId, secondaryOwnerId);
+            IList<VinSecondaryOwnerAction> vinSecondaryOwnerActions = new List<VinSecondaryOwnerAction>();
+            foreach (var vin in vins)
+            {
+                var vinSecondaryOwnerAction = new VinSecondaryOwnerAction
+                {
+                    Vin = vin,
+                    SecondaryOwnerId = secondaryOwnerId,
+                    SecondaryOwnerEmail = null,
+                    Enable = false,
+                    Disable = false,
+                };
+                vinSecondaryOwnerActions.Add(vinSecondaryOwnerAction);
+            }
+            return vinSecondaryOwnerActions;
         }
     }
 }

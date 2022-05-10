@@ -10,7 +10,7 @@ namespace HDD.Services
         Task<IEnumerable<VinOwnership>> GetPrimaryOwnershipVins(string ownerId);
         Task<IList<EmailInfo>> GetSecondaryOwners(string ownerId);
 
-        Task<IList<string>> GetVinsForSecondaryOwnershipAssignment(string ownerId, string secondaryOwnerId);
+        Task<IList<VinSecondaryOwnerAction>> GetVinsForSecondaryOwnershipAssignment(string ownerId, string secondaryOwnerId);
 
     }
 }

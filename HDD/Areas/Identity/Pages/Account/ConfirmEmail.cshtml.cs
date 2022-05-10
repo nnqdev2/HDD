@@ -55,7 +55,7 @@ namespace HDD.Areas.Identity.Pages.Account
                 ownersVin.OwnerId = user.Id;
                 ownersVin.Vin = user.VIN;
                 ownersVin.UpdateDateTime = DateTime.Now;
-                ownersVin.PrimaryOwner = user.VIN is null ? "N" : "Y";
+                ownersVin.PrimaryOwner = user.VIN is not null ? "Y" : "N";
                 ownersVin.OwnerStatus = true;
                 ownersVin.UpdateDateTime = DateTime.Now;
                 await _hddDataService.InsertOwnersVin(ownersVin);

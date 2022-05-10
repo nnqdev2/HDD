@@ -24,10 +24,55 @@
     <div class="col-md-4">
         <form asp-action="AssignSecondaryOwner"  method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="SecondaryOwnerId" class="control-label"></label>
-                    <select asp-for="SecondaryOwnerId" class="form-control" asp-items="ViewBag.Emails"></select>
-                </div>
+            <div class="form-group">
+                <label asp-for="SecondaryOwnerId" class="control-label"></label>
+                <select asp-for="SecondaryOwnerId" class="form-control" asp-items="ViewBag.Emails"></select>
+            </div>
+            <br />
+            <br />
+    @if (Model is not null && Model.VinSecondaryOwnerActions.Count() > 0)
+    {
+     <table class="table table-bordered table-hover" >
+            @*<table class="table table-bordered table-hover" style="width:100%">*@
+	            <thead>
+		            <tr>
+			            <th>VIN</th>
+			            <th>Add</th>
+		            </tr>
+	            </thead>
+	            <tbody>
+                    @if (Model is not null && Model.VinSecondaryOwnerActions.Count() > 0)
+                    {
+                        @foreach(var obj in Model.VinSecondaryOwnerActions)
+		                {
+			                <tr>
+				                <td >@obj</td>
+				                <td>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" id="@obj.Enable">
+@*                                      <label class="form-check-label" for="flexCheckDefault">
+                                        Default checkbox
+                                      </label>*@
+                                    </div>
+                                </td>
+			                </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                        <td >No vins</td>
+                        </tr>
+                    }
+
+			
+	            </tbody>
+            </table>    
+
+    }
+
+
+
         </form>
 </div></div>
 

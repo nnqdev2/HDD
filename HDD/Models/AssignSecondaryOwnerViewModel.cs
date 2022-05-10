@@ -9,6 +9,6 @@ namespace HDD.Models
         //[Required]
         public string? SecondaryOwnerId { get; set; }
 
-        public virtual ICollection<string>? Vins { get; set; }
+        public virtual ICollection<VinSecondaryOwnerAction>? VinSecondaryOwnerActions { get; set; }
     }
 }
