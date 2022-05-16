@@ -247,6 +247,38 @@ namespace HDD.Controllers
             var x = await _vinOwnershipService.GetVinsForSecondaryOwnershipAssignment(userId, secondaryOwnerId);
             return (JsonResult)x ;
         }
+        //[Authorize]
+        //[HttpGet]
+        //public async Task<IActionResult> GeSecondaryOwners()
+        //{
+        //    userId = _userManager.GetUserId(User);
+        //    var emails = await _vinOwnershipService.GetPrimaryOwnershipVins(userId);
+        //    ViewBag.Emails = emails.Select(x => new SelectListItem()
+        //    {
+        //        Text = x.Email,
+        //        Value = x.SecondaryOwnerId
+
+        //    }).ToList();
+
+        //    return View();
+        //}
+        
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetVinsAndSecondaryOwners()
+        {
+            userId = _userManager.GetUserId(User);
+            var emails = await _vinOwnershipService.GetPrimaryOwnershipVins(userId);
+            //ViewBag.Emails = emails.Select(x => new SelectListItem()
+            //{
+            //    Text = x.Email,
+            //    Value = x.SecondaryOwnerId
+
+            //}).ToList();
+
+            return View();
+        }
+
         [AllowAnonymous]
         public IActionResult Privacy()
         {

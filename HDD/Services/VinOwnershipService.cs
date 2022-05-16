@@ -100,21 +100,45 @@ namespace HDD.Services
 
         public async Task<IList<VinSecondaryOwnerAction>> GetVinsForSecondaryOwnershipAssignment(string ownerId, string secondaryOwnerId)
         {
-            var vins = await _dataService.GetVinsForSecondaryOwnershipAssignment(ownerId, secondaryOwnerId);
+            var VinsForSecondaryOwnerAssignment = await _dataService.GetVinsForSecondaryOwnershipAssignment(ownerId, secondaryOwnerId);
             IList<VinSecondaryOwnerAction> vinSecondaryOwnerActions = new List<VinSecondaryOwnerAction>();
-            foreach (var vin in vins)
+            foreach (var vin in VinsForSecondaryOwnerAssignment)
             {
                 var vinSecondaryOwnerAction = new VinSecondaryOwnerAction
                 {
-                    Vin = vin,
+                    Vin = vin.Vin,
                     SecondaryOwnerId = secondaryOwnerId,
                     SecondaryOwnerEmail = null,
-                    Enable = false,
-                    Disable = false,
+                    Assigned = false
                 };
                 vinSecondaryOwnerActions.Add(vinSecondaryOwnerAction);
             }
             return vinSecondaryOwnerActions;
         }
+
+        public async Task<IEnumerable<VinOwnership>> GetVinsAndSecondaryOwners(string ownerId)
+        {
+            //var secondaryOwnersVins = await _dataService.GetSecondaryOwnerIds("aaf7efd0-ae13-48e9-9d72-83e713ef8100");
+            var secondaryOwnersVins = await _dataService.GetSecondaryOwnerIds(ownerId);
+            //var secondaryOwnerIds = secondaryOwnersVins.GroupBy(o => o.OwnerId).Select(s => s.First());
+            var distinctSecondaryOwnersVins = secondaryOwnersVins.GroupBy(o => new { o.OwnerId }).Select(g => g.First());
+            IList<EmailInfo> emailInfos = new List<EmailInfo>();
+            foreach (var secondaryOwnersVin in distinctSecondaryOwnersVins)
+            {
+                var user = await _userManager.FindByIdAsync(secondaryOwnersVin.OwnerId);
+                var emailInfo = new EmailInfo
+                {
+                    //OwnerId = ownerId,
+                    SecondaryOwnerId = secondaryOwnersVin.OwnerId,
+                    Email = user.Email,
+                    //FirstName = user.FirstName,
+                    //LastName = user.LastName
+                };
+                emailInfos.Add(emailInfo);
+            }
+            return null;
+        }
+
+
     }
 }

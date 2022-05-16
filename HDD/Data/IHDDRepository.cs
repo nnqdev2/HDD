@@ -28,6 +28,6 @@ namespace HDD.Data
         string GetVin(string plate);
 
         bool IsVinClaimed(string vin);
-        Task<IList<string>> GetVinsForSecondaryOwnershipAssignment(string ownerId, string secondaryOwnerId);
+        Task<IList<VinsForSecondaryOwnerAssignment>> GetVinsForSecondaryOwnershipAssignment(string ownerId, string secondaryOwnerId);
     }
 }

@@ -266,11 +266,13 @@ namespace HDD.Data
         public async Task<IList<OwnersVin>> GetSecondaryOwnerIds(string ownerId)
         {
             var p1 = new SqlParameter("@OwnerId", ownerId);
+            var p3 = new SqlParameter("@OwnerStatus", true);
+            var p4 = new SqlParameter("@OwnerStatus2", true);
             var secondaryOwnersVins = await _context.OwnersVin.FromSqlInterpolated(
                 $@"select ov2.*
                         from (select ov1.vin
-                        from  dbo.OwnersVin ov1 where ov1.ownerid = {p1} and  ov1.PrimaryOwner like 'Y%' and ov1.OwnerStatus = 1) ov1
-                        inner join dbo.OwnersVin ov2 on ov1.vin = ov2.vin and PrimaryOwner like 'N%' and OwnerStatus = 1")
+                                from  dbo.OwnersVin ov1 where ov1.ownerid = {p1} and  ov1.PrimaryOwner like 'Y%' and ov1.OwnerStatus = {p3}) ov1
+                        inner join dbo.OwnersVin ov2 on ov1.vin = ov2.vin and ov2.PrimaryOwner like 'N%' and ov2.OwnerStatus = {p4}")
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -286,17 +288,54 @@ namespace HDD.Data
             return (IList<OwnersVin>)secondaryOwnersVins;
         }
 
-        public async Task<IList<string>> GetVinsForSecondaryOwnershipAssignment(string ownerId, string secondaryOwnerId)
+        public async Task<IList<VinsForSecondaryOwnerAssignment>> GetVinsForSecondaryOwnershipAssignment(string ownerId, string secondaryOwnerId)
         {
             var p1 = new SqlParameter("@OwnerId", ownerId);
-            var p2 = new SqlParameter("@SecondaryOwnerId", secondaryOwnerId);
+            //var p2 = new SqlParameter("@SecondaryOwnerId", secondaryOwnerId);
+            var p3 = new SqlParameter("@OwnerStatus", true);
+
+            //var p1 = new SqlParameter("@OwnerId", ownerId);
+            //var p3 = new SqlParameter("@OwnerStatus", true);
+            //var p4 = new SqlParameter("@OwnerStatus2", true);
+
             var vins = await _context.OwnersVin.FromSqlInterpolated(
-                $@"
-                    select vin from dbo.OwnersVIN ov
-                    where ov.OwnerID = {p1}
-                    and ov.vin not in (select vin from dbo.OwnersVIN where  OwnerID = {p2})")
-                .AsNoTracking()
-                .ToListAsync();
+            $@"                with v1 as (
+                            select ov1.vin, ov1.OwnerID
+                            from  dbo.OwnersVin ov1 where ov1.OwnerID = {p1}
+                            and ov1.OwnerStatus = {p3} and ov1.PrimaryOwner like 'Y%'
+                            )
+                            select ov1.*
+                            from v1
+                            inner join dbo.OwnersVin ov1 on ov1.vin = v1.vin
+                            order by ov1.VIN, ov1.PrimaryOwner")
+            .AsNoTracking()
+            .ToListAsync();
+
+            IList<VinsForSecondaryOwnerAssignment> objectList = vins.Select(o =>
+            new VinsForSecondaryOwnerAssignment
+            {
+                OwnerId = o.OwnerId,
+                Vin = o.Vin,
+                PrimaryOwner = o.PrimaryOwner
+            }).ToList();
+
+            //var vins = await _context.OwnersVin.FromSqlInterpolated(
+            //    $@"
+            //        select vin from dbo.OwnersVIN ov
+            //        where ov.OwnerID = {p1} and ov.OwnerStatus = {p3}
+            //        and ov.vin not in (select vin from dbo.OwnersVIN where  OwnerID = {p2})")
+
+            //var vins = await _context.OwnersVin.FromSqlInterpolated(
+            //    $@"
+
+            //        select ov1.*
+            //        from  dbo.OwnersVin ov1 where ov1.OwnerID = {p1}
+            //        and ov1.OwnerStatus = {p3} and ov1.PrimaryOwner like 'Y%')")
+
+
+
+            //    .AsNoTracking()
+            //    .ToListAsync();
 
             //var secondaryOwnerVins = (from a in _context.OwnersVin
             //              where a.OwnerId == ownerId && a.PrimaryOwner == "N" && a.OwnerStatus == true 
@@ -306,7 +345,7 @@ namespace HDD.Data
             //                         where a.OwnerId == ownerId && a.PrimaryOwner == "Y" && a.OwnerStatus == true
             //                         select new { a.Vin }).ToList();
 
-            return (IList<string>)vins;
+            return (IList<VinsForSecondaryOwnerAssignment>)objectList;
         }
 
         public IEnumerable<DocumentAction> GetDocumentsAction(string vin)
