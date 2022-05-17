@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
+using System;
 
 namespace HDD.Controllers
 {
@@ -234,18 +235,29 @@ namespace HDD.Controllers
                 Value = x.SecondaryOwnerId
 
             }).ToList();
-            
+
+            //var y = new AssignSecondaryOwnerViewModel();
+            //y.SecondaryOwnerId = userId;
+            //y.VinSecondaryOwnerActions = await _vinOwnershipService.GetVinsForSecondaryOwnershipAssignment(userId, "xxxxxxxxxxx");
+
             return View();
+
+            //var y = new AssignSecondaryOwnerViewModel();
+            //y.SecondaryOwnerId = userId;
+            //y.VinSecondaryOwnerActions = await _vinOwnershipService.GetVinsForSecondaryOwnershipAssignment(userId, "xxxxxxxxxxx");
+
+            //return View(y);
         }
 
 
         [Authorize]
         [HttpGet]
-        public async Task<JsonResult> GetVinsForAssignment(string secondaryOwnerId)
+        public async Task<IActionResult> GetVinsForAssignment(string secondaryOwnerId)
         {
             userId = _userManager.GetUserId(User);
             var x = await _vinOwnershipService.GetVinsForSecondaryOwnershipAssignment(userId, secondaryOwnerId);
-            return (JsonResult)x ;
+            JsonResult jsonResult = Json(x);
+            return jsonResult;
         }
         //[Authorize]
         //[HttpGet]

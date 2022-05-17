@@ -10,30 +10,38 @@
         <li class="breadcrumb-item active" aria-current="page">VIN Eligibility</li>
     </ol>
 </nav>*@
-<hr />
 
-	<div class="row pt-4">
+<h2 class="text-primary">@ViewData["Title"]</h2>
+@*	<div class="row pt-4">
 		<div class="col-6">
 			<h2 class="text-primary">Assign Secondary Owner to VINs</h2>
 		</div>
-	</div>
+	</div>*@
 
      <br /><br />
+ <form id="AssignSecondaryOwner" asp-action="AssignSecondaryOwner"  method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+ @*   <div class="row g-3">*@
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label asp-for="SecondaryOwnerId" class="control-label"></label>
+                    <select asp-for="SecondaryOwnerId" class="form-control" asp-items="ViewBag.Emails">
+                        <option value="0">Please select</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    OR
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="SecondaryOwnerId" class="control-label"></label>
+                    <input asp-for="SecondaryOwnerId" class="form-control" />
+                    <span asp-validation-for="SecondaryOwnerId" class="text-danger"></span>
+                </div>		
 
-      <div class="row" style="font:bold; padding-left:.75em; " Segoe UI", Arial, sans-serif;">
-    <div class="col-md-4">
-        <form id="AssignSecondaryOwner" asp-action="AssignSecondaryOwner"  method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="SecondaryOwnerId" class="control-label"></label>
-                <select asp-for="SecondaryOwnerId" class="form-control" asp-items="ViewBag.Emails">
-                    <option value="0">Please select</option>
-                </select>
             </div>
-            <br />
-            <br />
-            @if (Model is not null && Model.VinSecondaryOwnerActions.Count() > 0)
-            {
+
+@*            @if (Model is not null && Model.VinSecondaryOwnerActions.Count() > 0)
+            {*@
                  <table id="AssignSecondaryOwner" class="table table-bordered table-hover" >
                         @*<table class="table table-bordered table-hover" style="width:100%">*@
                               <thead>
@@ -46,15 +54,15 @@
                                 @if (Model is not null && Model.VinSecondaryOwnerActions.Count() > 0)
                                 {
                                     @foreach(var obj in Model.VinSecondaryOwnerActions)
-                                         {
-                                               <tr>
-                                                     <td >@obj.Vin</td>
-                                                     <td>
-                                                        <div class="form-check">
-                                                          <input class="form-check-input" type="checkbox" value="" id="@obj.Assigned">
-                                                        </div>
-                                                     </td>
-                                               </tr>
+                                    {
+                                        <tr>
+                                                <td >@obj.Vin</td>
+                                                <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="@obj.Assigned">
+                                                </div>
+                                                </td>
+                                        </tr>
                                     }
                                 }
                                 else
@@ -65,10 +73,10 @@
                                 }
                               </tbody>
                  </table>
-            }
-        </form>
-</div></div>
+@*            }*@
 
+@*</div>*@
+</form>
 
 
 
@@ -87,6 +95,7 @@
 			$("#SecondaryOwnerId").change(function () {
                 var soid = $("#SecondaryOwnerId").val();
                 alert("SecondaryOwnerEmail before ajax: " + $("#SecondaryOwnerId").val());
+                debugger;
 
                 $.ajax({
                 url: '@Url.Action("GetVinsForAssignment")',
@@ -101,30 +110,6 @@
                     alert("error : " + reponse);
                 }
             });
-
-
-
-
-
-                //$.ajax({
-                //    type: "GET",
-                //    url: '@Url.Action("GetVinsForAssignment")',
-                //    dataType: "json",
-                //    beforeSend: function (xhr) {
-                //        xhr.setRequestHeader("XSRF-TOKEN",
-                //            $('input:hidden[name="__RequestVerificationToken"]').val());
-                //    },
-                //    data: { "secondaryOwnerId": $("#SecondaryOwnerId).val() },
-                //    success: function(data) {
-                //        $('#AssignSecondaryOwner > table').html(data); //assumed that you get whole table from the ajax call
-                //    }
-                //    failure: function (response) {
-                //        alert("Failure: " +response);
-                //    },
-                //    error: function (response) {
-                //        alert("Error: " +response);
-                //    }
-                //});    
 
             });
         });

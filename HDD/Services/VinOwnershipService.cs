@@ -116,28 +116,37 @@ namespace HDD.Services
             return vinSecondaryOwnerActions;
         }
 
-        public async Task<IEnumerable<VinOwnership>> GetVinsAndSecondaryOwners(string ownerId)
-        {
-            //var secondaryOwnersVins = await _dataService.GetSecondaryOwnerIds("aaf7efd0-ae13-48e9-9d72-83e713ef8100");
-            var secondaryOwnersVins = await _dataService.GetSecondaryOwnerIds(ownerId);
-            //var secondaryOwnerIds = secondaryOwnersVins.GroupBy(o => o.OwnerId).Select(s => s.First());
-            var distinctSecondaryOwnersVins = secondaryOwnersVins.GroupBy(o => new { o.OwnerId }).Select(g => g.First());
-            IList<EmailInfo> emailInfos = new List<EmailInfo>();
-            foreach (var secondaryOwnersVin in distinctSecondaryOwnersVins)
-            {
-                var user = await _userManager.FindByIdAsync(secondaryOwnersVin.OwnerId);
-                var emailInfo = new EmailInfo
-                {
-                    //OwnerId = ownerId,
-                    SecondaryOwnerId = secondaryOwnersVin.OwnerId,
-                    Email = user.Email,
-                    //FirstName = user.FirstName,
-                    //LastName = user.LastName
-                };
-                emailInfos.Add(emailInfo);
-            }
-            return null;
-        }
+        //public async Task<IEnumerable<VinOwnership>> GetVinsAndSecondaryOwners(string ownerId)
+        //{
+        //    var secondaryOwnersVins = await _dataService.GetSecondaryOwnerIds(ownerId);
+
+        ////public string? OwnerId { get; set; }
+        ////public string? Vin { get; set; }
+        ////public string? PrimaryOwner { get; set; }
+        ////public bool? OwnerStatus { get; set; }
+        ////public DateTime? UpdateDateTime { get; set; }
+        //////public string? Certified { get; set; }
+        ////public string? Email { get; set; }
+        ////public string? FirstName { get; set; }
+        ////public string? LastName { get; set; }
+        ////public string? Title { get; set; }
+
+        //    IList<VinOwnership> vinOwnerships = new List<VinOwnership>();
+        //    foreach (var secondaryOwnersVin in secondaryOwnersVins)
+        //    {
+        //        var secondaryOwnerUserInfo = await _userManager.FindByIdAsync(secondaryOwnersVin.OwnerId);
+        //        var vinOwnership = new VinOwnership
+        //        {
+        //            //OwnerId = ownerId,
+        //            SecondaryOwnerId = secondaryOwnersVin.OwnerId,
+        //            Email = secondaryOwnerUserInfo.Email,
+        //            //FirstName = user.FirstName,
+        //            //LastName = user.LastName
+        //        };
+        //        emailInfos.Add(emailInfo);
+        //    }
+        //    return null;
+        //}
 
 
     }
